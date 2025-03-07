@@ -83,10 +83,11 @@ function getLatinCharacterList(str) {
 // Créer une fonction translateLatinCharacter qui prend un paramètre un caractère et renvoie sa correspondance en morse.
 
 function translateLatinCharacter(letter) {
-    if (latinToMorse[letter]) {
-        return latinToMorse[letter];
+    if (latinToMorse[letter.toUpperCase()]) {
+        return latinToMorse[letter.toUpperCase()];
     }
 }
+console.log(translateLatinCharacter('f'))
 
 // Étape 3
 // Ajouter une nouvelle fonction encode qui prend en paramètre du texte et qui va utiliser la fonction de l’étape 1,
