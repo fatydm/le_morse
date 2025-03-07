@@ -54,7 +54,10 @@ const morseToLatin = {
     '..-.': "F",
     '...': "S",
     '...-': "V",
-    '....': "H"
+    '....': "H",
+    ' ': '',
+    '/': ' '
+
 }
 
 // Étape 1 
@@ -104,29 +107,33 @@ function encode(text) {
 // Ajoutez-le à votre code, et appliquez les procédés similaire à ce qui a été fait pour le encode pour créer une fonction decode. 
 // Dans cet exercice, on admettra que les lettres en morse sont séparées par un espace, et les mots par des “/” (slash).
 
-// Je récupère mon tableau de lettre en Morse
-
-function getMorseCharacterList (str) {
+// Je récupère mon tableau de lettre Morse
+function getMorseCharacterList(str) {
     const morseLetters = str.split(' ')
-    
+
     return morseLetters
 }
-console.log(getMorseCharacterList('... --- ...'));
+//console.log(getMorseCharacterList('... --- ...'));
 
-function translateMorseCharacter (letter) {
+// Cette fonction me permet de changer mon caractère 'lettre' en 'morse'
+function translateMorseCharacter(letter) {
     if (morseToLatin[letter]) {
-        return morseToLatin[letter];
+        return morseToLatin[letter] || 'Cette lettre n\'existe pas';
     }
 }
-// console.log(translateMorseCharacter('.'))
+//console.log(translateMorseCharacter('...'))
 
+// Dans cette fonction, je veux qu'une fois que mon mot en morse est écrit, 
+// il me change chaque lettre de la chaine de caractère en lettre latin
 function decode(textMorse) {
     const textToTranslateMorse = getMorseCharacterList(textMorse);
+    
     let translatedInLatin = "";
 
-    for (let i = 0; i < textToTranslateMorse; i++){
-
+    for (let i = 0; i < textToTranslateMorse.length; i++) {
+        translatedInLatin += translateMorseCharacter(textToTranslateMorse[i])
     }
-
+    return translatedInLatin
 }
+console.log(decode('... --- ... / . / ...'));
 
