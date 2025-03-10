@@ -92,7 +92,7 @@ submitBtnToMorse.addEventListener('click', () => {
         let translatedTextInMorse = encode(inputMorseValue.value);
 
         let paragraphMorse = document.createElement('p')
-        paragraphMorse.classList('paraStyle')
+        paragraphMorse.classList.add('paraStyle')
         paragraphMorse.innerText = translatedTextInMorse;
         divMorse.appendChild(paragraphMorse);
     }
@@ -106,7 +106,7 @@ submitBtnToLatin.addEventListener('click', () => {
         let translatedTextInLatin = decode(inputLatinValue.value)
 
         let paragraphlatin = document.createElement('p')
-        paragraphlatin.classList('paraStyle')
+        paragraphlatin.classList.add('paraStyle')
         paragraphlatin.innerText = translatedTextInLatin
         divLatin.appendChild(paragraphlatin);
     }
