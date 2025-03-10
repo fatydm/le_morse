@@ -1,64 +1,4 @@
 
-const latinToMorse = {
-    'A': '.-',
-    'B': '-...',
-    'C': '-.-.',
-    'D': '-..',
-    'E': '.',
-    'F': '..-.',
-    'G': '--.',
-    'H': '....',
-    'I': '..',
-    'J': '.---',
-    'K': '-.-',
-    'L': '.-..',
-    'M': '--',
-    'N': '-.',
-    'O': '---',
-    'P': '.--.',
-    'Q': '--.-',
-    'R': '.-.',
-    'S': '...',
-    'T': '-',
-    'U': '..-',
-    'V': '...-',
-    'W': '.--',
-    'X': '-..-',
-    'Y': '-.--',
-    'Z': '--..'
-}
-
-const morseToLatin = {
-    '-': "T",
-    '--': "M",
-    '---': "O",
-    '--.': "G",
-    '--.-': "Q",
-    '--..': "Z",
-    '-.': "N",
-    '-.-': "K",
-    '-.--': "Y",
-    '-.-.': "C",
-    '-..': "D",
-    '-..-': "X",
-    '-...': "B",
-    '.': "E",
-    '.-': "A",
-    '.--': "W",
-    '.---': "J",
-    '.--.': "P",
-    '.-.': "R",
-    '.-..': "L",
-    '..': "I",
-    '..-': "U",
-    '..-.': "F",
-    '...': "S",
-    '...-': "V",
-    '....': "H",
-    ' ': '',
-    '/': ' '
-
-}
 
 // Étape 1 
 // Dans un fichier JavaScript, commencez par écrire une fonction getLatinCharacterList. 
@@ -84,7 +24,7 @@ function getLatinCharacterList(str) {
 
 function translateLatinCharacter(letter) {
     if (latinToMorse[letter.toUpperCase()]) {
-        return latinToMorse[letter.toUpperCase()];
+        return latinToMorse[letter.toUpperCase()] || '';
     }
 }
 console.log(translateLatinCharacter('f'))
@@ -95,13 +35,12 @@ console.log(translateLatinCharacter('f'))
 
 function encode(text) {
     const textToTranslate = getLatinCharacterList(text);
+    let resulatTranslated = textToTranslate.map(translateLatinCharacter).join(' ');
 
-    let resulatTranslated = "";
-
-    for (let i = 0; i < textToTranslate.length; i++) {
-        resulatTranslated += translateLatinCharacter(textToTranslate[i]);
-    }
-    return resulatTranslated
+    // for (let i = 0; i < textToTranslate.length; i++) {
+    //     resulatTranslated += translateLatinCharacter(textToTranslate[i]) + ' ';
+    // }
+    return resulatTranslated.trim()
 }
 
 // Étape 4 
@@ -111,7 +50,6 @@ function encode(text) {
 // Je récupère mon tableau de lettre Morse
 function getMorseCharacterList(str) {
     const morseLetters = str.split(' ')
-
     return morseLetters
 }
 //console.log(getMorseCharacterList('... --- ...'));
@@ -128,13 +66,51 @@ function translateMorseCharacter(letter) {
 // il me change chaque lettre de la chaine de caractère en lettre latin
 function decode(textMorse) {
     const textToTranslateMorse = getMorseCharacterList(textMorse);
-    
-    let translatedInLatin = "";
+    let translatedInLatin = textToTranslateMorse.map(translateMorseCharacter).join('');
 
-    for (let i = 0; i < textToTranslateMorse.length; i++) {
-        translatedInLatin += translateMorseCharacter(textToTranslateMorse[i])
-    }
-    return translatedInLatin
+    // for (let i = 0; i < textToTranslateMorse.length; i++) {
+    //     translatedInLatin += translateMorseCharacter(textToTranslateMorse[i])
+    // }
+    return translatedInLatin.trim()
 }
 console.log(decode('... --- ... / . / ...'));
+
+
+
+const submitBtnToMorse = document.getElementById('submitBtnMorse')
+const submitBtnToLatin = document.getElementById('submitBtnLatin')
+const inputMorseValue = document.getElementById('morseTranslation')
+const inputLatinValue = document.getElementById('latinTranslation')
+const divMorse = document.querySelector('.toMorse')
+const divLatin = document.querySelector('.toLatin')
+
+// Traduire du Latin au Morse
+submitBtnToMorse.addEventListener('click', () => {
+    console.log("coucou", inputLatinValue.value);
+
+    if (inputMorseValue.value.trim() !== "") {
+        let translatedTextInMorse = encode(inputMorseValue.value);
+
+        let paragraphMorse = document.createElement('p')
+        paragraphMorse.classList('paraStyle')
+        paragraphMorse.innerText = translatedTextInMorse;
+        divMorse.appendChild(paragraphMorse);
+    }
+
+})
+
+// Traduire du Morse au Latin
+submitBtnToLatin.addEventListener('click', () => {
+
+    if (inputLatinValue.value.trim() !== "") {
+        let translatedTextInLatin = decode(inputLatinValue.value)
+
+        let paragraphlatin = document.createElement('p')
+        paragraphlatin.classList('paraStyle')
+        paragraphlatin.innerText = translatedTextInLatin
+        divLatin.appendChild(paragraphlatin);
+    }
+})
+
+
 
